@@ -105,6 +105,8 @@ export { ModuleGuard } from './_guards/module.guard';
 
 // MODELS
 export { User } from './_models/user.model';
+export { UserAuth } from './_models/user';
+export { Account } from './_models/account';
 export { Permission } from './_models/permission.model';
 export { Role } from './_models/role.model';
 export { Address } from './_models/address.model';

@@ -18,11 +18,11 @@ export class InterceptService implements HttpInterceptor {
 	): Observable<HttpEvent<any>> {
 		// tslint:disable-next-line:no-debugger
 		// modify request
-		// request = request.clone({
-		// 	setHeaders: {
-		// 		Authorization: `Bearer ${localStorage.getItem('accessToken')}`
-		// 	}
-		// });
+		request = request.clone({
+			setHeaders: {
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+			}
+		});
 		// console.log('----request----');
 		// console.log(request);
 		// console.log('--- end of request---');
@@ -41,8 +41,8 @@ export class InterceptService implements HttpInterceptor {
 					// console.log('----response----');
 					// console.error('status code:');
 					// tslint:disable-next-line:no-debugger
-					console.error(error.status);
-					console.error(error.message);
+					// console.error(error.status);
+					// console.error(error.message);
 					// console.log('--- end of response---');
 				}
 			)

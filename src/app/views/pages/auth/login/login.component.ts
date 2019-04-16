@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../core/reducers';
 // Auth
 import { AuthNoticeService, AuthService, Login } from '../../../../core/auth';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 /**
  * ! Just example => Should be removed in development
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	loading = false;
 	isLoggedIn$: Observable<boolean>;
 	errors: any = [];
+	jwtHelper = new JwtHelperService();
 
 	private unsubscribe: Subject<any>; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
@@ -131,9 +133,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.auth
 			.login(authData.email, authData.password)
 			.pipe(
-				tap(user => {
-					if (user) {
-						this.store.dispatch(new Login({authToken: user.accessToken}));
+				tap((token: string) => {
+					if (token) {
+						localStorage.setItem('token', token);
+						this.store.dispatch(new Login({ authToken: token }));
 						this.router.navigateByUrl('/'); // Main page
 					} else {
 						this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
@@ -145,7 +148,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 					this.cdr.detectChanges();
 				})
 			)
-			.subscribe();
+			.subscribe(resp => { },
+				error => {
+					this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
+				});
 	}
 
 	/**

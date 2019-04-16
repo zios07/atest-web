@@ -43,7 +43,7 @@ import { LayoutConfigService, LayoutRefService, MenuAsideService, MenuConfigServ
 import { AuthModule } from './views/pages/auth/auth.module';
 import { AuthService, PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from './core/auth';
 // CRUD
-import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from './core/_base/crud';
+import { HttpUtilsService, LayoutUtilsService, TypesUtilsService, InterceptService } from './core/_base/crud';
 // Config
 import { LayoutConfig } from './core/_config/default/layout.config';
 // Highlight JS
@@ -107,6 +107,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 	exports: [],
 	providers: [
 		AuthService,
+		InterceptService,
 		LayoutConfigService,
 		LayoutRefService,
 		MenuConfigService,

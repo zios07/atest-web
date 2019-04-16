@@ -13,6 +13,8 @@ import { AppState } from '../../../../core/reducers';
 import { AuthNoticeService, AuthService, Register, User } from '../../../../core/auth/';
 import { Subject } from 'rxjs';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
+import { UserAuth } from './../../../../core/auth/_models/user';
+import { Account } from './../../../../core/auth/_models/account';
 
 @Component({
 	selector: 'kt-register',
@@ -75,7 +77,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
 	 */
 	initRegisterForm() {
 		this.registerForm = this.fb.group({
-			fullname: ['', Validators.compose([
+			firstName: ['', Validators.compose([
+				Validators.required,
+				Validators.minLength(3),
+				Validators.maxLength(100)
+			])
+			],
+			lastName: ['', Validators.compose([
 				Validators.required,
 				Validators.minLength(3),
 				Validators.maxLength(100)
@@ -136,17 +144,19 @@ export class RegisterComponent implements OnInit, OnDestroy {
 			return;
 		}
 
-		const _user: User = new User();
-		_user.clear();
-		_user.email = controls['email'].value;
-		_user.username = controls['username'].value;
-		_user.fullname = controls['fullname'].value;
-		_user.password = controls['password'].value;
-		_user.roles = [];
+		// const _user: User = new User();
+		const _user: UserAuth = new UserAuth();
+		_user.account = new Account();
+		// _user.clear();
+		_user.account.username = controls['email'].value;
+		_user.firstName = controls['firstName'].value;
+		_user.lastName = controls['lastName'].value;
+		_user.account.password = controls['password'].value;
+		// _user.roles = [];
 		this.auth.register(_user).pipe(
 			tap(user => {
 				if (user) {
-					this.store.dispatch(new Register({authToken: user.accessToken}));
+					// this.store.dispatch(new Register({authToken: user.accessToken}));
 					// pass notice message to the login page
 					this.authNoticeService.setNotice(this.translate.instant('AUTH.REGISTER.SUCCESS'), 'success');
 					this.router.navigateByUrl('/auth/login');
