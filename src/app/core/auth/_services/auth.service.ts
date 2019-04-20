@@ -91,6 +91,14 @@ export class AuthService {
         return this.http.put(API_USERS_URL, _user, { headers: httpHeaders });
     }
 
+    // UPDATE_PROFILE => PUT: update the user profile on the server
+    updateProfile(profile): Observable<any> {
+        const httpHeaders = new HttpHeaders();
+        httpHeaders.set('Content-Type', 'application/json');
+        return this.http.put(API_USERS_URL + '/profile', profile, { headers: httpHeaders });
+    }
+
+
     // CREATE =>  POST: add a new user to the server
     createUser(user: User): Observable<User> {
         const httpHeaders = new HttpHeaders();
