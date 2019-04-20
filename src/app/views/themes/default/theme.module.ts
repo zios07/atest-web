@@ -94,7 +94,7 @@ import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from
 		NgxPermissionsModule.forChild(),
 		StoreModule.forFeature('roles', rolesReducer),
 		StoreModule.forFeature('permissions', permissionsReducer),
-		EffectsModule.forFeature([PermissionEffects, RoleEffects]),
+		EffectsModule.forFeature([RoleEffects]),
 		PagesRoutingModule,
 		PagesModule,
 		PartialsModule,

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // Models
 import { DataTableItemModel } from '../models/datatable-item.model';
+import { environment } from 'src/environments/environment';
 
 const API_DATATABLE_URL = 'api/cars';
 

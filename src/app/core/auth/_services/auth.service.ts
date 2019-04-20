@@ -42,15 +42,7 @@ export class AuthService {
     register(user: UserAuth): Observable<any> {
         const httpHeaders = new HttpHeaders();
         httpHeaders.set('Content-Type', 'application/json');
-        return this.http.post<UserAuth>(API_REGISTRATION_URL, user, { headers: httpHeaders })
-            .pipe(
-                map((res: UserAuth) => {
-                    return res;
-                }),
-                catchError(err => {
-                    return null;
-                })
-            );
+        return this.http.post<UserAuth>(API_REGISTRATION_URL, user, { headers: httpHeaders });
     }
 
     /*

@@ -163,6 +163,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 				} else {
 					this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
 				}
+			}, error => {
+				this.authNoticeService.setNotice(this.translate.instant(error.error.code), 'danger');
+				this.loading = false;
 			}),
 			takeUntil(this.unsubscribe),
 			finalize(() => {
