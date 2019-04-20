@@ -42,18 +42,23 @@ export class MenuConfig {
 					bullet: 'dot',
 				},
 				{
-					title: 'Layout Builder',
+					title: 'Users',
 					root: true,
-					icon: 'flaticon2-expand',
-					page: 'builder'
+					icon: 'flaticon2-user',
+					page: 'users'
 				},
-				{section: 'Custom'},
 				{
-					title: 'Custom Link',
+					title: 'Roles',
 					root: true,
-					icon: 'flaticon2-link',
-					bullet: 'dot',
+					icon: 'flaticon2-safe',
+					page: 'roles'
 				},
+				{
+					title: 'Test Cases',
+					root: true,
+					icon: 'flaticon2-graphic',
+					page: 'test-cases'
+				}
 			]
 		},
 	};

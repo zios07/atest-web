@@ -8,225 +8,235 @@ export class PageConfig {
 		},
 		ngbootstrap: {
 			accordion: {
-				page: {title: 'Accordion', desc: ''}
+				page: { title: 'Accordion', desc: '' }
 			},
 			alert: {
-				page: {title: 'Alert', desc: ''}
+				page: { title: 'Alert', desc: '' }
 			},
 			buttons: {
-				page: {title: 'Buttons', desc: ''}
+				page: { title: 'Buttons', desc: '' }
 			},
 			carousel: {
-				page: {title: 'Carousel', desc: ''}
+				page: { title: 'Carousel', desc: '' }
 			},
 			collapse: {
-				page: {title: 'Collapse', desc: ''}
+				page: { title: 'Collapse', desc: '' }
 			},
 			datepicker: {
-				page: {title: 'Datepicker', desc: ''}
+				page: { title: 'Datepicker', desc: '' }
 			},
 			dropdown: {
-				page: {title: 'Dropdown', desc: ''}
+				page: { title: 'Dropdown', desc: '' }
 			},
 			modal: {
-				page: {title: 'Modal', desc: ''}
+				page: { title: 'Modal', desc: '' }
 			},
 			pagination: {
-				page: {title: 'Pagination', desc: ''}
+				page: { title: 'Pagination', desc: '' }
 			},
 			popover: {
-				page: {title: 'Popover', desc: ''}
+				page: { title: 'Popover', desc: '' }
 			},
 			progressbar: {
-				page: {title: 'Progressbar', desc: ''}
+				page: { title: 'Progressbar', desc: '' }
 			},
 			rating: {
-				page: {title: 'Rating', desc: ''}
+				page: { title: 'Rating', desc: '' }
 			},
 			tabs: {
-				page: {title: 'Tabs', desc: ''}
+				page: { title: 'Tabs', desc: '' }
 			},
 			timepicker: {
-				page: {title: 'Timepicker', desc: ''}
+				page: { title: 'Timepicker', desc: '' }
 			},
 			tooltip: {
-				page: {title: 'Tooltip', desc: ''}
+				page: { title: 'Tooltip', desc: '' }
 			},
 			typehead: {
-				page: {title: 'Typehead', desc: ''}
+				page: { title: 'Typehead', desc: '' }
 			}
 		},
 		material: {
 			// form controls
 			'form-controls': {
 				autocomplete: {
-					page: {title: 'Auto Complete', desc: ''}
+					page: { title: 'Auto Complete', desc: '' }
 				},
 				checkbox: {
-					page: {title: 'Checkbox', desc: ''}
+					page: { title: 'Checkbox', desc: '' }
 				},
 				datepicker: {
-					page: {title: 'Datepicker', desc: ''}
+					page: { title: 'Datepicker', desc: '' }
 				},
 				radiobutton: {
-					page: {title: 'Radio Button', desc: ''}
+					page: { title: 'Radio Button', desc: '' }
 				},
 				formfield: {
-					page: {title: 'Form field', desc: ''}
+					page: { title: 'Form field', desc: '' }
 				},
 				input: {
-					page: {title: 'Input', desc: ''}
+					page: { title: 'Input', desc: '' }
 				},
 				select: {
-					page: {title: 'Select', desc: ''}
+					page: { title: 'Select', desc: '' }
 				},
 				slider: {
-					page: {title: 'Slider', desc: ''}
+					page: { title: 'Slider', desc: '' }
 				},
 				slidertoggle: {
-					page: {title: 'Slider Toggle', desc: ''}
+					page: { title: 'Slider Toggle', desc: '' }
 				}
 			},
 			// navigation
 			navigation: {
 				menu: {
-					page: {title: 'Menu', desc: ''}
+					page: { title: 'Menu', desc: '' }
 				},
 				sidenav: {
-					page: {title: 'Sidenav', desc: ''}
+					page: { title: 'Sidenav', desc: '' }
 				},
 				toolbar: {
-					page: {title: 'Toolbar', desc: ''}
+					page: { title: 'Toolbar', desc: '' }
 				}
 			},
 			// layout
 			layout: {
 				card: {
-					page: {title: 'Card', desc: ''}
+					page: { title: 'Card', desc: '' }
 				},
 				divider: {
-					page: {title: 'Divider', desc: ''}
+					page: { title: 'Divider', desc: '' }
 				},
 				'expansion-panel': {
-					page: {title: 'Expansion panel', desc: ''}
+					page: { title: 'Expansion panel', desc: '' }
 				},
 				'grid-list': {
-					page: {title: 'Grid list', desc: ''}
+					page: { title: 'Grid list', desc: '' }
 				},
 				list: {
-					page: {title: 'List', desc: ''}
+					page: { title: 'List', desc: '' }
 				},
 				tabs: {
-					page: {title: 'Tabs', desc: ''}
+					page: { title: 'Tabs', desc: '' }
 				},
 				stepper: {
-					page: {title: 'Stepper', desc: ''}
+					page: { title: 'Stepper', desc: '' }
 				},
 				'default-forms': {
-					page: {title: 'Default Forms', desc: ''}
+					page: { title: 'Default Forms', desc: '' }
 				},
 				tree: {
-					page: {title: 'Tree', desc: ''}
+					page: { title: 'Tree', desc: '' }
 				},
 			},
 			// buttons & indicators
 			'buttons-and-indicators': {
 				button: {
-					page: {title: 'Button', desc: ''}
+					page: { title: 'Button', desc: '' }
 				},
 				'button-toggle': {
-					page: {title: 'Button toggle', desc: ''}
+					page: { title: 'Button toggle', desc: '' }
 				},
 				chips: {
-					page: {title: 'Chips', desc: ''}
+					page: { title: 'Chips', desc: '' }
 				},
 				icon: {
-					page: {title: 'Icon', desc: ''}
+					page: { title: 'Icon', desc: '' }
 				},
 				'progress-bar': {
-					page: {title: 'Progress bar', desc: ''}
+					page: { title: 'Progress bar', desc: '' }
 				},
 				'progress-spinner': {
-					page: {title: 'Progress spinner', desc: ''}
+					page: { title: 'Progress spinner', desc: '' }
 				}
 			},
 			// popups & models
 			'popups-and-modals': {
 				'bottom-sheet': {
-					page: {title: 'Bottom sheet', desc: ''}
+					page: { title: 'Bottom sheet', desc: '' }
 				},
 				dialog: {
-					page: {title: 'Dialog', desc: ''}
+					page: { title: 'Dialog', desc: '' }
 				},
 				snackbar: {
-					page: {title: 'Snackbar', desc: ''}
+					page: { title: 'Snackbar', desc: '' }
 				},
 				tooltip: {
-					page: {title: 'Tooltip', desc: ''}
+					page: { title: 'Tooltip', desc: '' }
 				}
 			},
 			// Data tables
 			'data-table': {
 				paginator: {
-					page: {title: 'Paginator', desc: ''}
+					page: { title: 'Paginator', desc: '' }
 				},
 				'sort-header': {
-					page: {title: 'Sort header', desc: ''}
+					page: { title: 'Sort header', desc: '' }
 				},
 				table: {
-					page: {title: 'Table', desc: ''}
+					page: { title: 'Table', desc: '' }
 				}
 			}
 		},
 		forms: {
-			page: {title: 'Forms', desc: ''}
+			page: { title: 'Forms', desc: '' }
 		},
 		mail: {
-			page: {title: 'Mail', desc: 'Mail'}
+			page: { title: 'Mail', desc: 'Mail' }
 		},
 		ecommerce: {
 			customers: {
-				page: {title: 'Customers', desc: ''}
+				page: { title: 'Customers', desc: '' }
 			},
 			products: {
 				edit: {
-					page: {title: 'Edit product', desc: ''}
+					page: { title: 'Edit product', desc: '' }
 				},
 				add: {
-					page: {title: 'Create product', desc: ''}
+					page: { title: 'Create product', desc: '' }
 				}
 			},
 			orders: {
-				page: {title: 'Orders', desc: ''}
+				page: { title: 'Orders', desc: '' }
 			}
 		},
 		'user-management': {
 			users: {
-				page: {title: 'Users', desc: ''}
+				page: { title: 'Users', desc: '' }
 			},
 			roles: {
-				page: {title: 'Roles', desc: ''}
+				page: { title: 'Roles', desc: '' }
 			}
 		},
 		builder: {
-			page: {title: 'Layout Builder', desc: ''}
+			page: { title: 'Layout Builder', desc: '' }
 		},
 		header: {
 			actions: {
-				page: {title: 'Actions', desc: 'Actions example page'}
+				page: { title: 'Actions', desc: 'Actions example page' }
 			}
 		},
 		profile: {
-			page: {title: 'User Profile', desc: ''}
+			page: { title: 'User Profile', desc: '' }
 		},
 		error: {
 			404: {
-				page: {title: '404 Not Found', desc: '', subheader: false}
+				page: { title: '404 Not Found', desc: '', subheader: false }
 			},
 			403: {
 				page: { title: '403 Access Forbidden', desc: '', subheader: false }
 			}
-		}
+		},
+		'test-cases': {
+			page: { title: 'Test cases', desc: 'Test cases management' }
+		},
+		users: {
+			page: { title: 'Users', desc: 'Users cases management' }
+		},
+
+		roles: {
+			page: { title: 'Roles', desc: 'Roles cases management' }
+		},
 	};
 
 	public get configs(): any {

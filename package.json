@@ -3,6 +3,9 @@
   "version": "6.0.0",
   "license": "MIT",
   "scripts": {
+    "postbuild": "npm run deploy",
+    "predeploy": "rimraf /Users/ZiOS/Desktop/fiverr/vaibhavkavi-atest/atest/src/main/resources/static/ && mkdirp /Users/ZiOS/Desktop/fiverr/vaibhavkavi-atest/atest/src/main/resources/static/",
+    "deploy": "cp -f -r dist/** /Users/ZiOS/Desktop/fiverr/vaibhavkavi-atest/atest/src/main/resources/static/",
     "ng": "ng",
     "start": "node server",
     "build": "ng build --prod",

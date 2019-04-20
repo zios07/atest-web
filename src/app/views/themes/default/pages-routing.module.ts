@@ -6,6 +6,9 @@ import { BaseComponent } from './base/base.component';
 import { ErrorPageComponent } from './content/error-page/error-page.component';
 // Auth
 import { AuthGuard } from '../../../core/auth';
+import { UsersComponent } from '../../pages/users/users.component';
+import { RolesComponent } from '../../pages/roles/roles.component';
+import { TestCaseComponent } from '../../pages/test-case/test-case.component';
 
 const routes: Routes = [
 	{
@@ -21,9 +24,11 @@ const routes: Routes = [
 				path: 'builder',
 				loadChildren: 'app/views/themes/default/content/builder/builder.module#BuilderModule'
 			},
-			{path: 'error/:type', component: ErrorPageComponent},
-			{path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-			{path: '**', redirectTo: 'dashboard', pathMatch: 'full'}
+			{ path: 'users', component: UsersComponent },
+			{ path: 'roles', component: RolesComponent },
+			{ path: 'test-cases', component: TestCaseComponent },
+			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+			{ path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 		]
 	},
 ];
