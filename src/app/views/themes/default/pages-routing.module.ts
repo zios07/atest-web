@@ -9,6 +9,7 @@ import { AuthGuard } from '../../../core/auth';
 import { UsersComponent } from '../../pages/users/users.component';
 import { RolesComponent } from '../../pages/roles/roles.component';
 import { TestCaseComponent } from '../../pages/test-case/test-case.component';
+import { ProfileComponent } from '../../pages/profile/profile.component';
 
 const routes: Routes = [
 	{
@@ -27,6 +28,7 @@ const routes: Routes = [
 			{ path: 'users', component: UsersComponent },
 			{ path: 'roles', component: RolesComponent },
 			{ path: 'test-cases', component: TestCaseComponent },
+			{ path: 'profile', component: ProfileComponent },
 			{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 			{ path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 		]

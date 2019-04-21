@@ -52,7 +52,7 @@ export class DataTableComponent implements OnInit {
 		merge(this.sort.sortChange, this.paginator.page)
 			.pipe(
 				tap(() => {
-					this.loadItems();
+					// this.loadItems();
 				})
 			)
 			.subscribe();
@@ -60,7 +60,7 @@ export class DataTableComponent implements OnInit {
 		// Init DataSource
 		this.dataSource = new DataTableDataSource(this.dataTableService);
 		// First load
-		this.loadItems(true);
+		// this.loadItems(true);
 	}
 
 	/**
