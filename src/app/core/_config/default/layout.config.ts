@@ -140,7 +140,7 @@ export class LayoutConfig {
 		'aside': {
 			'self': {
 				'skin': 'dark',
-				'display': true,
+				'display': false,
 				'fixed': true,
 				'minimize': {
 					'toggle': true,

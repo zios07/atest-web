@@ -5,12 +5,17 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } fr
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { debug } from 'util';
+import { Router } from '@angular/router';
 
 /**
  * More information there => https://medium.com/@MetonymyQT/angular-http-interceptors-what-are-they-and-how-to-use-them-52e060321088
  */
 @Injectable()
 export class InterceptService implements HttpInterceptor {
+
+	constructor(
+		private router: Router) { }
+
 	// intercept request and add token
 	intercept(
 		request: HttpRequest<any>,
@@ -30,13 +35,16 @@ export class InterceptService implements HttpInterceptor {
 		return next.handle(request).pipe(
 			tap(
 				event => {
-					 if (event instanceof HttpResponse) {
+					if (event instanceof HttpResponse) {
 						// console.log('all looks good');
 						// http response status code
 						// console.log(event.status);
 					}
 				},
 				error => {
+					if (error.status === 403 || error.status === 401) {
+						this.router.navigateByUrl('/auth/login');
+					}
 					// http response status code
 					// console.log('----response----');
 					// console.error('status code:');

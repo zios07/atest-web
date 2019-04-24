@@ -1,6 +1,6 @@
 export class MenuConfig {
 	public defaults: any = {
-		header: {
+		aside: {
 			self: {},
 			// 'items': [
 			// 	{
@@ -30,12 +30,13 @@ export class MenuConfig {
 			// 	}
 			// ]
 		},
-		aside: {
+		header: {
 			self: {},
 			items: [
 				{
 					title: 'Dashboard',
 					root: true,
+					alignment: 'left',
 					icon: 'flaticon2-architecture-and-city',
 					page: 'dashboard',
 					translate: 'MENU.DASHBOARD',
@@ -44,18 +45,21 @@ export class MenuConfig {
 				{
 					title: 'Users',
 					root: true,
+					alignment: 'left',
 					icon: 'flaticon2-user',
 					page: 'users'
 				},
 				{
 					title: 'Roles',
 					root: true,
+					alignment: 'left',
 					icon: 'flaticon2-safe',
 					page: 'roles'
 				},
 				{
 					title: 'Test Cases',
 					root: true,
+					alignment: 'left',
 					icon: 'flaticon2-graphic',
 					page: 'test-cases'
 				}

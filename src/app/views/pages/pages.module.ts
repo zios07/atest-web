@@ -57,6 +57,7 @@ import {
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AuthModule } from './auth/auth.module';
 import { PartialsModule } from '../partials/partials.module';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
 	declarations: [UsersComponent, RolesComponent, TestCaseComponent, ProfileComponent],
@@ -98,6 +99,7 @@ import { PartialsModule } from '../partials/partials.module';
 		MatRadioModule,
 		MatTreeModule,
 		MatButtonToggleModule,
+		CKEditorModule,
 		CommonModule,
 		HttpClientModule,
 		FormsModule,

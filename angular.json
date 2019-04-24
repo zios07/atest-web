@@ -31,11 +31,14 @@
               "src/web.config"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/jstree/dist/themes/default/style.min.css"
 			      ],
             "scripts": [
               "src/assets/vendors/base/vendors.bundle.js",
-              "src/assets/demo/default/base/scripts.bundle.js"
+              "src/assets/demo/default/base/scripts.bundle.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/jstree/dist/jstree.min.js"
             ],
             "es5BrowserSupport": true
           },
