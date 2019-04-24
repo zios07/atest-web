@@ -2,9 +2,19 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import 'jstree';
+import { TestCase } from '../../../core/test-case/model/TestCase';
 import { TestCaseService } from '../../../core/test-case/services/test-case.service';
 
 declare var $: any;
+
+class TreeNode {
+  id: number;
+  text: string;
+  type: string;
+  parent: TreeNode;
+  children: TreeNode[];
+  testCase: TestCase;
+}
 
 @Component({
   selector: 'kt-test-case',
@@ -14,91 +24,106 @@ declare var $: any;
 export class TestCaseComponent implements OnInit {
 
   @ViewChild('jstreearea') jsTree: ElementRef;
-  data: any[] = [];
-  treeData: TreeDatas = new TreeDatas();
-  treeDataschild: TreeDatasChild = new TreeDatasChild();
-  treeDataschildNode: TreeDatasChild = new TreeDatasChild();
+  data: TreeNode[] = [];
+
+  testCase: TestCase;
+  treeNode: TreeNode;
   public Editor = ClassicEditor;
   testCaseForm: FormGroup;
-  loading = false;
   errors: any = [];
 
   constructor(
     private fb: FormBuilder,
-    private testCaseService: TestCaseService) { }
-
-  submitForm() {
-    this.loading = true;
-    this.testCaseService.createTestCase(this.testCaseForm.value).subscribe(
-      resp => {
-        this.loading = false;
-        console.log(this.loading);
-        console.log(resp);
-      },
-      error => {
-        this.loading = false;
-        console.log(error);
-      }
-    )
+    private testCaseService: TestCaseService) {
+    this.testCase = new TestCase();
+    this.treeNode = new TreeNode();
   }
 
   ngOnInit() {
     this.initTestCaseForm();
-    this.getAllData();
+    this.createDataTree([1]);
+  }
+
+  submitForm() {
+    this.testCaseService.createTestCase(this.testCaseForm.value).subscribe(
+      resp => {
+        this.newTestCaseAdded(resp);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  newTestCaseAdded(testCase) {
+
   }
 
   toggleDetailsView() {
+    alert(' I am triggered ');
   }
 
-  getAllData() {
-    let result = [];
-    this.jsTree.nativeElement.addEventListener('click', this.toggleDetailsView.bind(this));
+  createDataTree(data: Array<any>) {
+    let treeOnClick = (treeId, treeNode) => {
+      console.log(treeId);
+      console.log(treeNode);
+    };
+    let treeData = [];
+    for (let item of data) {
+      treeData.push({
+        'id': 1,
+        'text': 'name',
+        'type': 'B',
+        'parent': '#'
+      },
+        {
+          'id': 2,
+          'text': 'cris',
+          'type': 'folder',
+          'parent': 1
+        });
+    }
 
-    this.buildTreeData(result);
-    this.data.push(this.treeData);
-
-    $('#data').jstree({
-      "types": {
-        "folder": {
-          "icon": "jstree-icon jstree-folder"
+    let tree = $(this.jsTree.nativeElement).jstree({
+      'core': {
+        'data': treeData,
+        'check_callback': true
+      },
+      'types': {
+        'folder': {
+          'icon': 'jstree-icon jstree-folder'
         },
-        "file": {
-          "icon": "jstree-icon jstree-file"
+        'file': {
+          'icon': 'jstree-icon jstree-file'
+        },
+        'B': {
+          'icon': 'fa fa-database'
         }
       },
-      'core': {
-        'data': this.data
-      },
+      'plugins': ['sort', 'wholerow', 'dnd', 'contextmenu', 'types']
 
-      "plugins": ["sort", "wholerow", "dnd", "contextmenu", "types"]
+      // 'plugins': ['dnd', 'wholerow', 'search', 'types']
     });
-
-    $('#data').on("changed.jstree", (e, data) => {
-      if (data.node && data.node.type === 'file') {
-      }
-    });
-    $('#data').on('activate_node.jstree', function (e, data) {
-      if (data === undefined || data.node === undefined || data.node.id === undefined) {
-        return;
-      }
+    tree.on('select_node.jstree', function (e, data) {
+      treeOnClick('jstree_data', data.node)
     });
   }
 
   buildTreeData(result) {
 
     for (let v = 0; v < result.length; v++) {
-      this.treeData = new TreeDatas();
-      this.treeData.id = result[v].nodeId;
-      this.treeData.type = 'folder';
-      this.treeData.text = result[v].nodeName;
-      this.treeData.children = [];
-      for (let i = 0; i < result[v].testCases.length; i++) {
-        this.treeDataschild = new TreeDatasChild();
-        this.treeDataschild.type = 'file';
-        this.treeDataschild.id = result[v].testCases[i].id;
-        this.treeDataschild.text = result[v].testCases[i].name;
-        this.treeData.children.push(this.treeDataschild);
-      }
+      this.treeNode = new TreeNode();
+      this.treeNode.id = result[v].nodeId;
+      this.treeNode.type = 'folder';
+      this.treeNode.text = result[v].nodeName;
+      this.treeNode.children = [];
+      // for (let i = 0; i < result[v].testCases.length; i++) {
+      //   this.treeNodeschild = new TreeNode();
+      //   this.treeNodeschild.type = 'file';
+      //   this.treeNodeschild.id = result[v].testCases[i].id;
+      //   this.treeNodeschild.text = result[v].testCases[i].name;
+      //   this.treeNode.children.push(this.treeNodeschild);
+      // }
     }
   }
 
@@ -122,19 +147,6 @@ export class TestCaseComponent implements OnInit {
       preConditions: [''],
       steps: [''],
       verifications: ['']
-    })
+    });
   }
-}
-
-class TreeDatas {
-  public id: number;
-  public text: string;
-  public type: string;
-  public children: TreeDatasChild[];
-}
-
-class TreeDatasChild {
-  public id: number;
-  public type: string;
-  public text: string;
 }

@@ -35,7 +35,7 @@
 
             <div class="col-lg-3">
               <mat-form-field class="example-full-width">
-                <mat-select [(value)]="selected" placeholder="Test Type" formControlName="type" >
+                <mat-select [(value)]="testCase.type" placeholder="Test Type" formControlName="type">
                   <mat-option value="option1">Type 1</mat-option>
                   <mat-option value="option2">Type 2</mat-option>
                   <mat-option value="option3">Type 3</mat-option>
@@ -45,7 +45,7 @@
 
             <div class="col-lg-3">
               <mat-form-field class="example-full-width">
-                <mat-select [(value)]="selected" placeholder="Test Category" formControlName="category" >
+                <mat-select [(value)]="testCase.category" placeholder="Test Category" formControlName="category">
                   <mat-option value="option1">Category 1</mat-option>
                   <mat-option value="option2">Category 2</mat-option>
                   <mat-option value="option3">Category 3</mat-option>
@@ -55,7 +55,7 @@
 
             <div class="col-lg-3">
               <mat-form-field class="example-full-width">
-                <mat-select [(value)]="selected" placeholder="Priority" formControlName="priority" >
+                <mat-select [(value)]="testCase.priority" placeholder="Priority" formControlName="priority">
                   <mat-option value="option1">Priority 1</mat-option>
                   <mat-option value="option2">Priority 2</mat-option>
                   <mat-option value="option3">Priority 3</mat-option>
@@ -65,7 +65,7 @@
 
             <div class="col-lg-3">
               <mat-form-field class="example-full-width">
-                <mat-select [(value)]="selected" placeholder="Complexity" formControlName="complexity" >
+                <mat-select [(value)]="testCase.complexity" placeholder="Complexity" formControlName="complexity">
                   <mat-option value="option1">Complexity 1</mat-option>
                   <mat-option value="option2">Complexity 2</mat-option>
                   <mat-option value="option3">Complexity 3</mat-option>
@@ -81,7 +81,8 @@
 
             <div class="col-lg-4">
               <mat-form-field class="example-full-width">
-                <mat-select [(value)]="selected" placeholder="Component Name" formControlName="componentName" >
+                <mat-select [(value)]="testCase.componentName" placeholder="Component Name"
+                  formControlName="componentName">
                   <mat-option value="option1">Component Name 1</mat-option>
                   <mat-option value="option2">Component Name 2</mat-option>
                   <mat-option value="option3">Component Name 3</mat-option>
@@ -91,7 +92,8 @@
 
             <div class="col-lg-4">
               <mat-form-field class="example-full-width">
-                <mat-select [(value)]="selected" placeholder="Component Owner" formControlName="componentOwner" >
+                <mat-select [(value)]="testCase.componentOwner" placeholder="Component Owner"
+                  formControlName="componentOwner">
                   <mat-option value="option1">Component Owner 1</mat-option>
                   <mat-option value="option2">Component Owner 2</mat-option>
                   <mat-option value="option3">Component Owner 3</mat-option>
@@ -101,7 +103,8 @@
 
             <div class="col-lg-4">
               <mat-form-field class="example-full-width">
-                <mat-select [(value)]="selected" placeholder="Radio should be here" formControlName="executionType" >
+                <mat-select [(value)]="testCase.executionType" placeholder="Radio should be here"
+                  formControlName="executionType">
                   <mat-option value="option1">Noooooo 1</mat-option>
                   <mat-option value="option2">Noooooo 2</mat-option>
                   <mat-option value="option3">Noooooo 3</mat-option>
@@ -115,13 +118,14 @@
 
             <div class="col-lg-4">
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Requirement Reference" formControlName="requirementReference" >
+                <input matInput placeholder="Requirement Reference" formControlName="requirementReference">
               </mat-form-field>
             </div>
 
             <div class="col-lg-4">
               <mat-form-field class="example-full-width">
-                <mat-select [(value)]="selected" placeholder="Requirement Owner" formControlName="requirementOwner" >
+                <mat-select [(value)]="testCase.requirementOwner" placeholder="Requirement Owner"
+                  formControlName="requirementOwner">
                   <mat-option value="option1">Requirement Owner 1</mat-option>
                   <mat-option value="option2">Requirement Owner 2</mat-option>
                   <mat-option value="option3">Requirement Owner 3</mat-option>
@@ -131,7 +135,7 @@
 
             <div class="col-lg-4">
               <mat-form-field class="example-full-width">
-                <input matInput placeholder="Requirement path/Url" formControlName="requirementPath" >
+                <input matInput placeholder="Requirement path/Url" formControlName="requirementPath">
               </mat-form-field>
             </div>
 
@@ -142,7 +146,7 @@
 
             <div class="col-lg-12">
               <mat-label>Pre-conditions</mat-label>
-              <ckeditor [editor]="Editor" formControlName="preConditions" ></ckeditor>
+              <ckeditor [editor]="Editor" formControlName="preConditions"></ckeditor>
             </div>
 
           </div>
@@ -150,18 +154,16 @@
           <div class="form-group kt-form__group row">
 
             <div class="col-lg-6">
-                <mat-label>Steps</mat-label>
-              <ckeditor [editor]="Editor" formControlName="steps" ></ckeditor>
+              <mat-label>Steps</mat-label>
+              <ckeditor [editor]="Editor" formControlName="steps"></ckeditor>
             </div>
 
             <div class="col-lg-6">
-                <mat-label>Verifications</mat-label>
-              <ckeditor [editor]="Editor" formControlName="verifications" ></ckeditor>
+              <mat-label>Verifications</mat-label>
+              <ckeditor [editor]="Editor" formControlName="verifications"></ckeditor>
             </div>
 
           </div>
-
-
 
         </div>
         <div class="kt-portlet__foot kt-portlet__no-border">
@@ -169,7 +171,8 @@
             <div class="row">
               <div class="col-lg-2"></div>
               <div class="col-lg-6"> {{loading}}
-                <button mat-raised-button color="primary" [disabled]="disableSubmit" [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">Submit</button>&nbsp;
+                <button mat-raised-button color="primary" [disabled]="disableSubmit"
+                  [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">Submit</button>&nbsp;
                 <button mat-raised-button type="reset">Cancel</button>
               </div>
             </div>
