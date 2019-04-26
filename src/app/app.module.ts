@@ -53,6 +53,9 @@ import * as scss from 'highlight.js/lib/languages/scss';
 import * as xml from 'highlight.js/lib/languages/xml';
 import * as json from 'highlight.js/lib/languages/json';
 
+import { ToastrModule } from 'ngx-toastr';
+
+
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	wheelSpeed: 0.5,
@@ -102,6 +105,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 		NgbModule,
 		TranslateModule.forRoot(),
 		MatProgressSpinnerModule,
+		ToastrModule.forRoot(),
 		InlineSVGModule.forRoot()
 	],
 	exports: [],

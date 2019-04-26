@@ -58,9 +58,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AuthModule } from './auth/auth.module';
 import { PartialsModule } from '../partials/partials.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { TreeComponent } from './tree/tree.component';
 
 @NgModule({
-	declarations: [UsersComponent, RolesComponent, TestCaseComponent, ProfileComponent],
+	declarations: [UsersComponent, RolesComponent, TestCaseComponent, ProfileComponent, TreeComponent],
 	exports: [],
 	imports: [
 		// material modules

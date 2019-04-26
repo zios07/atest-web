@@ -4,7 +4,7 @@ export class TestCase {
     type: string;
     category: string;
     priority: string;
-    comoplexity: string;
+    complexity: string;
     componentName: string;
     componentOwner: string;
     executionType: string;
