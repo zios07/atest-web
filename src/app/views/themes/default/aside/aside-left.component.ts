@@ -3,8 +3,9 @@ import { filter } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
 import * as objectPath from 'object-path';
 import { LayoutConfigService, MenuAsideService, MenuOptions } from '../../../../core/_base/layout';
-import { OffcanvasOptions } from '../../../../core/_base/metronic';
+// import { OffcanvasOptions } from '../../../../core/_base/metronic';
 import { HtmlClassService } from '../html-class.service';
+import { OffcanvasOptions } from '../../../../core/_base/metronic';
 
 @Component({
 	selector: 'kt-aside-left',

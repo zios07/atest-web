@@ -1,9 +1,16 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, Renderer2 } from '@angular/core';
 import 'jstree';
 import { Node } from '../../../core/test-case/model/Node';
 import { TestCaseService } from '../../../core/test-case/services/test-case.service';
 import { ToastrService } from 'ngx-toastr';
+import { OffcanvasOptions } from '../../../core/_base/metronic';
+import { MenuOptions, LayoutConfigService, MenuAsideService } from './../../../core/_base/layout';
+import { Router } from '@angular/router';
+import { HtmlClassService } from '../../themes/default/html-class.service';
+import { ToggleOptions } from '../../../core/_base/metronic';
+
 declare var $: any;
+import * as objectPath from 'object-path';
 
 @Component({
   selector: 'kt-tree',
@@ -20,13 +27,189 @@ export class TreeComponent implements OnInit {
   selectedNode;
   tree;
 
+  // MENU CONFIG
+
+  @ViewChild('asideMenu') asideMenu: ElementRef;
+
+  currentRouteUrl: string = '';
+  insideTm: any;
+  outsideTm: any;
+
+  menuCanvasOptions: OffcanvasOptions = {
+    baseClass: 'kt-aside',
+    overlay: false,
+    closeBy: 'kt_aside_close_btn',
+    toggleBy: {
+      target: 'kt_aside_mobile_toggler',
+      state: 'kt-header-mobile__toolbar-toggler--active'
+    }
+  };
+
+  toggleOptions: ToggleOptions = {
+    target: 'body',
+    targetState: 'kt-aside--minimize',
+    togglerState: 'kt-aside__brand-aside-toggler--active'
+  };
+
+  menuOptions: MenuOptions = {
+    // vertical scroll
+    scroll: null,
+
+    // submenu setup
+    submenu: {
+      desktop: {
+        // by default the menu mode set to accordion in desktop mode
+        default: 'dropdown',
+      },
+      tablet: 'accordion', // menu set to accordion in tablet mode
+      mobile: 'accordion' // menu set to accordion in mobile mode
+    },
+
+    // accordion setup
+    accordion: {
+      expandAll: false // allow having multiple expanded accordions in the menu
+    }
+  };
+
   constructor(private toastr: ToastrService,
-    private testCaseService: TestCaseService) {
+    private testCaseService: TestCaseService,
+
+    public htmlClassService: HtmlClassService,
+    public menuAsideService: MenuAsideService,
+    public layoutConfigService: LayoutConfigService,
+    private router: Router,
+    private render: Renderer2) {
     this.initTree();
   }
 
   ngOnInit() {
+
+    const config = this.layoutConfigService.getConfig();
+
+    if (objectPath.get(config, 'aside.menu.dropdown') !== true && objectPath.get(config, 'aside.self.fixed')) {
+      this.render.setAttribute(this.asideMenu.nativeElement, 'data-ktmenu-scroll', '1');
+    }
+
+    if (objectPath.get(config, 'aside.menu.dropdown')) {
+      this.render.setAttribute(this.asideMenu.nativeElement, 'data-ktmenu-dropdown', '1');
+      // tslint:disable-next-line:max-line-length
+      this.render.setAttribute(this.asideMenu.nativeElement, 'data-ktmenu-dropdown-timeout', objectPath.get(config, 'aside.menu.submenu.dropdown.hover-timeout'));
+    }
+
   }
+
+
+  isMenuItemIsActive(item): boolean {
+    if (item.submenu) {
+      return this.isMenuRootItemIsActive(item);
+    }
+
+    if (!item.page) {
+      return false;
+    }
+
+    return this.currentRouteUrl.indexOf(item.page) !== -1;
+  }
+
+  isMenuRootItemIsActive(item): boolean {
+    let result: boolean = false;
+
+    for (const subItem of item.submenu) {
+      result = this.isMenuItemIsActive(subItem);
+      if (result) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+	/**
+	 * Use for fixed left aside menu, to show menu on mouseenter event.
+	 * @param e Event
+	 */
+  mouseEnter(e: Event) {
+    // check if the left aside menu is fixed
+    if (document.body.classList.contains('kt-aside--fixed')) {
+      if (this.outsideTm) {
+        clearTimeout(this.outsideTm);
+        this.outsideTm = null;
+      }
+
+      this.insideTm = setTimeout(() => {
+        // if the left aside menu is minimized
+        if (document.body.classList.contains('kt-aside--minimize') && KTUtil.isInResponsiveRange('desktop')) {
+          // show the left aside menu
+          this.render.removeClass(document.body, 'kt-aside--minimize');
+          this.render.addClass(document.body, 'kt-aside--minimize-hover');
+        }
+      }, 50);
+    }
+  }
+
+	/**
+	 * Use for fixed left aside menu, to show menu on mouseenter event.
+	 * @param e Event
+	 */
+  mouseLeave(e: Event) {
+    if (document.body.classList.contains('kt-aside--fixed')) {
+      if (this.insideTm) {
+        clearTimeout(this.insideTm);
+        this.insideTm = null;
+      }
+
+      this.outsideTm = setTimeout(() => {
+        // if the left aside menu is expand
+        if (document.body.classList.contains('kt-aside--minimize-hover') && KTUtil.isInResponsiveRange('desktop')) {
+          // hide back the left aside menu
+          this.render.removeClass(document.body, 'kt-aside--minimize-hover');
+          this.render.addClass(document.body, 'kt-aside--minimize');
+        }
+      }, 100);
+    }
+  }
+
+  getItemCssClasses(item) {
+    let classes = 'kt-menu__item';
+
+    if (objectPath.get(item, 'submenu')) {
+      classes += ' kt-menu__item--submenu';
+    }
+
+    if (!item.submenu && this.isMenuItemIsActive(item)) {
+      classes += ' kt-menu__item--active kt-menu__item--here';
+    }
+
+    if (item.submenu && this.isMenuItemIsActive(item)) {
+      classes += ' kt-menu__item--open kt-menu__item--here';
+    }
+
+    // custom class for menu item
+    if (objectPath.has(item, 'custom-class')) {
+      classes += ' ' + item['custom-class'];
+    }
+
+    if (objectPath.get(item, 'icon-only')) {
+      classes += ' kt-menu__item--icon-only';
+    }
+
+    return classes;
+  }
+
+  getItemAttrSubmenuToggle(item) {
+    let toggle = 'hover';
+    if (objectPath.get(item, 'toggle') === 'click') {
+      toggle = 'click';
+    } else if (objectPath.get(item, 'submenu.type') === 'tabs') {
+      toggle = 'tabs';
+    } else {
+      // submenu toggle default to 'hover'
+    }
+
+    return toggle;
+  }
+
+  // END MENU CONFIG
 
   createDataTree(data) {
     let treeOnClick = (treeId, treeNode) => {
@@ -193,5 +376,9 @@ export class TreeComponent implements OnInit {
     });
     return id;
   }
+
+
+
+
 
 }
