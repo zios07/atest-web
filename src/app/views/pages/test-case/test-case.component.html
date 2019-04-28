@@ -1,9 +1,9 @@
 <div class="row">
 
-  <kt-tree #child (nodeSelected)="onNodeSelected($event)"></kt-tree>
+  <kt-tree #child (nodeSelected)="onNodeSelected($event)" style="width: 15%;overflow: auto;"></kt-tree>
 
   <div class="col-sm-10" *ngIf="showForm">
-    
+
     <div class="kt-portlet">
       <div class="kt-portlet__head">
         <div class="kt-portlet__head-caption">
@@ -168,8 +168,11 @@
             <div class="row">
               <div class="col-lg-2"></div>
               <div class="col-lg-6"> {{loading}}
-                <button mat-raised-button color="primary" [disabled]="disableSubmit"
+                <button mat-raised-button color="primary" [disabled]="disableSubmit || testCaseForm.disabled"
                   [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}">Submit</button>&nbsp;
+                <button mat-raised-button type="button" [disabled]="testCaseForm.enabled" color="primary"
+                  [ngClass]="{'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading}"
+                  (click)="enableFormFields()">Edit</button>&nbsp;
                 <button mat-raised-button type="reset">Cancel</button>
               </div>
             </div>

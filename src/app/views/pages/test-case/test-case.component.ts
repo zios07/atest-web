@@ -20,7 +20,7 @@ export class TestCaseComponent implements OnInit {
 
   @ViewChild('child')
   private childComponent: TreeComponent;
-  
+
   testCase: TestCase;
   public Editor = ClassicEditor;
   testCaseForm: FormGroup;
@@ -42,6 +42,10 @@ export class TestCaseComponent implements OnInit {
   }
 
   onNodeSelected(event) {
+    if (event.nodeDeleted) {
+      this.showForm = false;
+      return;
+    }
     this.treeData = event.tree;
     this.selectedNode = event.selectedNode;
     if (this.selectedNode && this.selectedNode.type === 'file') {
@@ -65,8 +69,11 @@ export class TestCaseComponent implements OnInit {
       this.testCaseForm.get('preConditions').setValue(this.testCase.preConditions);
       this.testCaseForm.get('steps').setValue(this.testCase.steps);
       this.testCaseForm.get('verifications').setValue(this.testCase.verifications);
+
+      // Disable fields
+      this.disabledFormFields();
     } else {
-      // this.testCase = new TestCase();
+      this.enableFormFields();
       this.clearForm();
     }
   }
@@ -123,23 +130,30 @@ export class TestCaseComponent implements OnInit {
   }
 
 
+  disabledFormFields() {
+    this.testCaseForm.disable();
+  }
+
+  enableFormFields() {
+    this.testCaseForm.enable();
+  }
 
   initTestCaseForm() {
     this.testCaseForm = this.fb.group({
-      title: [''],
-      type: [''],
-      category: [''],
-      priority: [],
-      complexity: [''],
-      componentName: [''],
-      componentOwner: [''],
-      executionType: [''],
-      requirementReference: [''],
-      requirementOwner: [''],
-      requirementPath: [''],
-      preConditions: [''],
-      steps: [''],
-      verifications: ['']
+      title: [{ value: '' }],
+      type: [{ value: '' }],
+      category: [{ value: '' }],
+      priority: [{ value: '' }],
+      complexity: [{ value: '' }],
+      componentName: [{ value: '' }],
+      componentOwner: [{ value: '' }],
+      executionType: [{ value: '' }],
+      requirementReference: [{ value: '' }],
+      requirementOwner: [{ value: '' }],
+      requirementPath: [{ value: '' }],
+      preConditions: [{ value: '' }],
+      steps: [{ value: '' }],
+      verifications: [{ value: '' }]
     });
   }
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { TestCase } from '../model/TestCase';
 
 
 const BASE_URL = environment.baseUrl;
@@ -21,6 +20,10 @@ export class TestCaseService {
 
   getTree() {
     return this.http.get(TEST_CASES_URL + 'tree');
+  }
+
+  deleteNode(id) {
+    return this.http.delete(TEST_CASES_URL + 'tree/node/' + id);
   }
 
 }

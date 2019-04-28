@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import 'jstree';
 import { Node } from '../../../core/test-case/model/Node';
 import { TestCaseService } from '../../../core/test-case/services/test-case.service';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 
 @Component({
@@ -19,13 +20,13 @@ export class TreeComponent implements OnInit {
   selectedNode;
   tree;
 
-  constructor(private testCaseService: TestCaseService) {
+  constructor(private toastr: ToastrService,
+    private testCaseService: TestCaseService) {
     this.initTree();
   }
 
   ngOnInit() {
   }
-
 
   createDataTree(data) {
     let treeOnClick = (treeId, treeNode) => {
@@ -103,10 +104,44 @@ export class TreeComponent implements OnInit {
           }
         }
       };
+    } else if (this.selectedNode && this.selectedNode.type === 'file' && this.selectedNode.technicalID) {
+      items = {
+        item1: {
+          label: 'Delete',
+          action: function () {
+            self.deleteNode();
+            $('#data').jstree(true).settings.core.data = self.treeData;
+            $('#data').jstree(true).refresh(true, true);
+          }
+        }
+      }
     }
     return items;
   }
 
+  deleteNode() {
+    if (confirm('Are you sure to delete ' + this.selectedNode.text)) {
+      const backUpTreeDate = this.treeData;
+      const id = this.selectedNode.technicalID;
+      this.mockDeletion(id);
+      this.testCaseService.deleteNode(id).subscribe(resp => {
+        this.toastr.info('Test case successfully deleted');
+      }, error => {
+        console.log(error);
+        this.setTreeData(backUpTreeDate);
+      });
+    }
+  }
+
+  mockDeletion(id) {
+    const treeData = this.treeData.filter(node => {
+      return node.technicalID !== id;
+    });
+    this.nodeSelected.emit({
+      nodeDeleted: true
+    });
+    this.setTreeData(treeData);
+  }
 
   setTreeData(data) {
     this.treeData = data;
