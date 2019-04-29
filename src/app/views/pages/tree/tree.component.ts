@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, Renderer2, Self } from '@angular/core';
 import 'jstree';
 import { Node } from '../../../core/test-case/model/Node';
 import { TestCaseService } from '../../../core/test-case/services/test-case.service';
@@ -20,6 +20,7 @@ import * as objectPath from 'object-path';
 export class TreeComponent implements OnInit {
 
   @Output() nodeSelected = new EventEmitter<any>();
+  @Output() editRequested = new EventEmitter<any>();
   @Input() nodeAdded: Node;
 
   @ViewChild('jstreearea') jsTree: ElementRef;
@@ -229,7 +230,7 @@ export class TreeComponent implements OnInit {
     this.tree = $(this.jsTree.nativeElement).jstree({
       core: {
         data: this.treeData,
-        check_callback: true
+        check_callback: true,
       },
       types: {
         folder: {
@@ -285,6 +286,22 @@ export class TreeComponent implements OnInit {
             $('#data').jstree(true).settings.core.data = self.treeData;
             $('#data').jstree(true).refresh();
           }
+        },
+        item3: {
+          label: 'Rename',
+          action: function () {
+            let newName = prompt('Enter new folder name');
+            self.selectedNode.text = newName;
+            self.renameNode(self.selectedNode);
+          }
+        },
+        item4: {
+          label: 'Delete',
+          action: function () {
+            self.deleteNode();
+            $('#data').jstree(true).settings.core.data = self.treeData;
+            $('#data').jstree(true).refresh(true, true);
+          }
         }
       };
     } else if (this.selectedNode && this.selectedNode.type === 'file' && this.selectedNode.technicalID) {
@@ -296,19 +313,62 @@ export class TreeComponent implements OnInit {
             $('#data').jstree(true).settings.core.data = self.treeData;
             $('#data').jstree(true).refresh(true, true);
           }
+        },
+        item2: {
+          label: 'Edit',
+          action: function () {
+            self.editRequested.emit({
+              node: self.selectedNode
+            });
+          }
         }
       }
     }
     return items;
   }
 
+  renameNode() {
+    this.testCaseService.renameNode(this.selectedNode).subscribe((resp: any) => {
+      console.log('Node renamed');
+      for (let i = 0; i < this.treeData.length; i++) {
+        let obj = this.treeData[i];
+        if (obj.id === this.selectedNode.id) {
+          obj.text = resp.text;
+          obj.technicalID = resp.technicalID;
+          $('#data').jstree(true).settings.core.data = this.treeData;
+          $('#data').jstree(true).refresh(true, true);
+        }
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
   deleteNode() {
     if (confirm('Are you sure to delete ' + this.selectedNode.text)) {
       const backUpTreeDate = this.treeData;
       const id = this.selectedNode.technicalID;
-      this.mockDeletion(id);
+      // this.mockDeletion(id);
       this.testCaseService.deleteNode(id).subscribe(resp => {
         this.toastr.info('Test case successfully deleted');
+        return this.testCaseService.getTree().subscribe(
+          (resp: any) => {
+            if (resp.length === 0) {
+              this.treeData.push({
+                'id': '1',
+                'text': 'root',
+                'type': 'B',
+                'parent': '#'
+              });
+            } else {
+              $('#data').jstree(true).settings.core.data = resp;
+              $('#data').jstree(true).refresh(true, true);
+            }
+          },
+          error => {
+            console.log(error);
+          }
+        );
       }, error => {
         console.log(error);
         this.setTreeData(backUpTreeDate);

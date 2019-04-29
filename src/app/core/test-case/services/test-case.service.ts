@@ -26,4 +26,8 @@ export class TestCaseService {
     return this.http.delete(TEST_CASES_URL + 'tree/node/' + id);
   }
 
+  renameNode(node) {
+    return this.http.put(TEST_CASES_URL + 'tree/node', node);
+  }
+
 }

@@ -41,6 +41,10 @@ export class TestCaseComponent implements OnInit {
     this.initTestCaseForm();
   }
 
+  onEditRequested(event) {
+    this.enableFormFields();
+  }
+
   onNodeSelected(event) {
     if (event.nodeDeleted) {
       this.showForm = false;

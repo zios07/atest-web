@@ -1,6 +1,6 @@
 <div class="row row-full-height">
 
-  <kt-tree #child (nodeSelected)="onNodeSelected($event)" style="width: 15%;overflow: auto;"></kt-tree>
+  <kt-tree #child (nodeSelected)="onNodeSelected($event)" (editRequested)="onEditRequested($event)"  style="width: 15%;overflow: auto;"></kt-tree>
 
   <div class="col-sm-10" *ngIf="showForm">
 
